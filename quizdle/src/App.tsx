@@ -28,7 +28,8 @@ function App() {
     fetchQuizzes();
   }, []);
 
-  return (
+  return (<>
+  
     <div className="app">
       <div className="header">
         <img src="/logo.png" alt="Quizdle Logo" className="logo" />
@@ -57,7 +58,7 @@ function App() {
 
       <button className="create-button">Quiz erstellen</button>
     </div>
-  );
+ </> );
 }
 
 export default App;

@@ -53,3 +53,7 @@
 .create-button:hover {
   background-color: #1e7a1e;
 }
+
+.questions-container {
+  margin-top: 30px;
+}
