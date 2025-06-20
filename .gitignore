@@ -11,6 +11,7 @@ quizdle/node_modules
 quizdle/dist
 quizdle/dist-ssr
 *.local
+pocketbase
 
 # Editor directories and files
 .vscode/*

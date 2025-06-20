@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PocketBase from "pocketbase";
-import QuestionCard from "../components/QuestionCard";
+import QuestionCard from "../../components/QuestionCard/QuestionCard";
 
 interface Question {
   id: string;
