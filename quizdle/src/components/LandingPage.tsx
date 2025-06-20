@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import PocketBase from "pocketbase";
 import CategoryCard from ".././components/CategoryCard";
-
 interface Quiz {
   id: string;
   category: string;
@@ -42,11 +41,11 @@ function LandingPage() {
         {quizzes.map((quiz) => (
           <CategoryCard
             key={quiz.id}
+            id={quiz.id}
             name={quiz.category}
             emoji={quiz.emoji || "❓"}
             color={quiz.color}
-            onClick={() => console.log(`Kategorie gewählt: ${quiz.category}`)}
-          />
+            />
         ))}
       </div>
 
