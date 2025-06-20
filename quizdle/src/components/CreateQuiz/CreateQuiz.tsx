@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import PocketBase from "pocketbase";
 import "./CreateQuiz.css";
+import { useNavigate } from "react-router-dom";
 
 const pb = new PocketBase("http://127.0.0.1:8090"); // ggf. URL anpassen
 
 interface CreateQuizProps {}
 
 const CreateQuiz: React.FC<CreateQuizProps> = () => {
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -35,6 +37,14 @@ const CreateQuiz: React.FC<CreateQuizProps> = () => {
   return (
     <div className="create-quiz-container">
       <form onSubmit={handleCreateQuiz} className="form-card">
+        <button
+          type="button"
+          className="close-button"
+          onClick={() => navigate("/")}
+          aria-label="Schließen"
+        >
+          ×
+        </button>
         <h4>Quiz Titel</h4>
         <label>
           <input
