@@ -1,7 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import LandingPage from "./components/LandingPage";
-import QuizStart from "./pages/QuizStart";
+import LandingPage from "./components/LandingPage/LandingPage";
+import QuizStart from "./pages/QuizStart/QuizStart";
+import QuizQuestion from "./components/QuizQuestion/QuizQuestion";
+import ResultPage from "./components/ResultPage/ResultPage";
 
 function App() {
   return (
@@ -10,6 +12,8 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/quiz/:id" element={<QuizStart />} />
+          <Route path="/quiz/:id/question/:index" element={<QuizQuestion />} />
+          <Route path="/result" element={<ResultPage />} />
         </Routes>
       </div>
     </Router>

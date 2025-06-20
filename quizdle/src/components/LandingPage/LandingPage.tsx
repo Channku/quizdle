@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PocketBase from "pocketbase";
-import CategoryCard from ".././components/CategoryCard";
+import CategoryCard from "../CategoryCard/CategoryCard";
 interface Quiz {
   id: string;
   category: string;
