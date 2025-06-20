@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import PocketBase from "pocketbase";
-
 import { useNavigate } from "react-router-dom";
 import CategoryCard from "../../components/CategoryCard/CategoryCard";
+import "./LandingPage.css";
+
 interface Quiz {
   id: string;
   category: string;
