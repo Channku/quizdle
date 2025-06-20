@@ -25,7 +25,7 @@ export default function QuizStart() {
 
     async function fetchData() {
       try {
-        const q = await pb.collection("quizzes").getOne<Quiz>(id);
+        const q = await pb.collection("quizzes").getOne<Quiz>(id as string);
         setQuiz(q);
 
         const questions = await pb.collection("questions").getFullList({
@@ -51,16 +51,13 @@ export default function QuizStart() {
 
   return (
     <div className="quiz-card">
-<<<<<<< HEAD:quizdle/src/pages/QuizStart.tsx
-      <h2>Kategorie: {quiz.category}</h2>
+      <h2>
+        {quiz.emoji} Kategorie: {quiz.category}
+      </h2>
       <p>
         <strong>Beschreibung: </strong>
         {quiz.description}
       </p>
-=======
-      <h2>{quiz.emoji} Kategorie: {quiz.category}</h2>
-      <p><strong>Beschreibung: </strong>{quiz.description}</p>
->>>>>>> main:quizdle/src/pages/QuizStart/QuizStart.tsx
 
       <p>
         <strong>Fragen:</strong> {questionCount}
@@ -73,10 +70,10 @@ export default function QuizStart() {
       </p>
 
       <button
-          className="start-button"
-          onClick={() => navigate(`/quiz/${id}/question/0`)}
-              >
-          Quiz starten
+        className="start-button"
+        onClick={() => navigate(`/quiz/${id}/question/0`)}
+      >
+        Quiz starten
       </button>
     </div>
   );
