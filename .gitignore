@@ -6,13 +6,11 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-/pocketbase/
 
 quizdle/node_modules
 quizdle/dist
 quizdle/dist-ssr
 *.local
-pocketbase
 
 # Editor directories and files
 .vscode/*
@@ -24,5 +22,6 @@ pocketbase
 *.njsproj
 *.sln
 *.sw?
-pocketbase/pb_data/data.db
-pocketbase/pb_data/auxiliary.db
+
+/pocketbase/
+

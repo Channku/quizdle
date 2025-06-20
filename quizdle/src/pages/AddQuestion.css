@@ -1,0 +1,90 @@
+.add-container {
+  background: #f0fbff;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-width: 80%;
+}
+
+.add-form {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1000px;
+}
+
+.add-title {
+  text-align: center;
+  color: #0076ff;
+  font-size: 24px;
+  margin-bottom: 25px;
+}
+
+.label {
+  font-weight: 600;
+  margin-top: 15px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.text-input {
+  width: 100%;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border: 1px solid #b5dcff;
+  border-radius: 10px;
+  font-size: 16px;
+  background-color: #f6fbff;
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+
+.toMain-button {
+  background-color: #0076ff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.toMain-button:hover {
+  background-color: #005fd4;
+}
+
+.add-button {
+  background-color: #21c55d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.add-button:hover {
+  background-color: #16a34a;
+}
+
+.toDelete-button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.toDelete-button:hover {
+  background-color: #e60000;
+}
