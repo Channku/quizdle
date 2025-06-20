@@ -3,31 +3,43 @@ import PocketBase from "pocketbase";
 import "./CreateQuiz.css";
 import { useNavigate } from "react-router-dom";
 
-const pb = new PocketBase("http://127.0.0.1:8090"); // ggf. URL anpassen
+const pb = new PocketBase("http://127.0.0.1:8090");
 
 interface CreateQuizProps {}
 
 const CreateQuiz: React.FC<CreateQuizProps> = () => {
   const navigate = useNavigate();
-  const [title, setTitle] = useState("");
+  const [name, setName] = useState("");
+  const [emoji, setEmoji] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
+  const [difficulty, setDifficulty] = useState("");
+  const [duration, setDuration] = useState<number>(50);
+  const [color, setColor] = useState("#2196f3");
 
   const handleCreateQuiz = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
       const data = {
-        title,
+        name,
+        emoji,
         description,
         category,
+        difficulty,
+        duration,
+        color,
       };
 
       await pb.collection("quizzes").create(data);
       alert("Quiz erfolgreich erstellt!");
-      setTitle("");
+      setName("");
+      setEmoji("");
       setDescription("");
       setCategory("");
+      setDifficulty("");
+      setDuration(0);
+      setColor("");
     } catch (error) {
       console.error("Fehler beim Erstellen des Quiz:", error);
       alert("Fehler beim Erstellen des Quiz.");
@@ -45,39 +57,106 @@ const CreateQuiz: React.FC<CreateQuizProps> = () => {
         >
           ×
         </button>
-        <h4>Quiz Titel</h4>
+
+        <div className="form-grid">
+          <div className="form-field">
+            <h4>Quiz Name</h4>
+            <label>
+              <input
+                type="text"
+                placeholder="Z. B. Musik-Expertenquiz"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+
+          <div className="form-field">
+            <h4>Emoji</h4>
+            <label>
+              <input
+                type="text"
+                placeholder="Z. B. 🎶"
+                value={emoji}
+                onChange={(e) => setEmoji(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+
+          <div className="form-field">
+            <h4>Beschreibung</h4>
+            <label>
+              <textarea
+                placeholder="Worum geht es in deinem Quiz?"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+
+          <div className="form-field">
+            <h4>Kategorie</h4>
+            <label>
+              <select
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                required
+              >
+                <option value="" disabled>
+                  Kategorie auswählen
+                </option>
+                <option value="Musik">Musik</option>
+                <option value="Geschichte">Geschichte</option>
+                <option value="Technologie">Technologie</option>
+              </select>
+            </label>
+          </div>
+
+          <div className="form-field">
+            <h4>Dauer</h4>
+            <label>
+              <input
+                type="range"
+                min={1}
+                max={60}
+                onChange={(e) => setDuration(Number(e.target.value))}
+                required
+              />
+              <span>{duration} min</span>
+            </label>
+          </div>
+
+          <div className="form-field">
+            <h4>Schwierigkeit</h4>
+            <label>
+              <select
+                value={difficulty}
+                onChange={(e) => setDifficulty(e.target.value)}
+                required
+              >
+                <option value="" disabled>
+                  Schwierigkeit auswählen
+                </option>
+                <option value="Easy">Leicht</option>
+                <option value="Medium">Mittel</option>
+                <option value="Hard">Schwierig</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <h4>Background Color</h4>
         <label>
           <input
-            type="text"
-            placeholder="Z. B. Musik-Expertenquiz"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            type="color"
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
             required
+            style={{ height: "3rem" }}
           />
-        </label>
-
-        <h4>Beschreibung</h4>
-        <label>
-          <textarea
-            placeholder="Worum geht es in deinem Quiz?"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-        </label>
-
-        <h4>Kategorie</h4>
-        <label>
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            required
-          >
-            <option value="">Bitte wählen...</option>
-            <option value="Musik">Musik</option>
-            <option value="Geschichte">Geschichte</option>
-            <option value="Technologie">Technologie</option>
-          </select>
         </label>
 
         <button type="submit" className="submit-btn">
