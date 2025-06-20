@@ -6,6 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+/pocketbase/
 
 quizdle/node_modules
 quizdle/dist
@@ -23,5 +24,5 @@ pocketbase
 *.njsproj
 *.sln
 *.sw?
-
-/backend/pocketbase
+pocketbase/pb_data/data.db
+pocketbase/pb_data/auxiliary.db

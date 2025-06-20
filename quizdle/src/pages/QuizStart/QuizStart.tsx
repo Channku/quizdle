@@ -51,12 +51,26 @@ export default function QuizStart() {
 
   return (
     <div className="quiz-card">
+<<<<<<< HEAD:quizdle/src/pages/QuizStart.tsx
+      <h2>Kategorie: {quiz.category}</h2>
+      <p>
+        <strong>Beschreibung: </strong>
+        {quiz.description}
+      </p>
+=======
       <h2>{quiz.emoji} Kategorie: {quiz.category}</h2>
       <p><strong>Beschreibung: </strong>{quiz.description}</p>
+>>>>>>> main:quizdle/src/pages/QuizStart/QuizStart.tsx
 
-      <p><strong>Fragen:</strong> {questionCount}</p>
-      <p><strong>Schwierigkeit:</strong> {quiz.difficulty || "Unbekannt"}</p>
-      <p><strong>Dauer:</strong> {quiz.duration || "ca. 5 Minuten"}</p>
+      <p>
+        <strong>Fragen:</strong> {questionCount}
+      </p>
+      <p>
+        <strong>Schwierigkeit:</strong> {quiz.difficulty || "Unbekannt"}
+      </p>
+      <p>
+        <strong>Dauer:</strong> {quiz.duration || "ca. 5 Minuten"}
+      </p>
 
       <button
           className="start-button"

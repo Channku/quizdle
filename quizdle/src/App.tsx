@@ -1,9 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import LandingPage from "./components/LandingPage/LandingPage";
-import QuizStart from "./pages/QuizStart/QuizStart";
 import QuizQuestion from "./components/QuizQuestion/QuizQuestion";
-import ResultPage from "./components/ResultPage/ResultPage";
+import ResultPage from "./pages/ResultPage/ResultPage";
+import LandingPage from "./pages/LandingPage/LandingPage";
+import CreateQuizPage from "./pages/CreateQuizPage/CreateQuizPage";
+import QuizStart from "./pages/QuizStart/QuizStart";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/quiz/:id" element={<QuizStart />} />
           <Route path="/quiz/:id/question/:index" element={<QuizQuestion />} />
           <Route path="/result" element={<ResultPage />} />
+          <Route path="/create-quiz" element={<CreateQuizPage />} />
         </Routes>
       </div>
     </Router>
