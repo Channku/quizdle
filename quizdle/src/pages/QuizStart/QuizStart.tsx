@@ -15,14 +15,16 @@ interface Quiz {
 const pb = new PocketBase("http://127.0.0.1:8090");
 
 export default function QuizStart() {
-  const { id } = useParams<{ id: string }>();
+  const id = useParams<{ id: string }>().id!;
   const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [questionCount, setQuestionCount] = useState<number>(0);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!id) return;
+  if (!id) {
+    return <p>Ungültige Quiz-ID.</p>;
+  }
 
+  useEffect(() => {
     async function fetchData() {
       try {
         const q = await pb.collection("quizzes").getOne<Quiz>(id as string);
@@ -41,10 +43,6 @@ export default function QuizStart() {
     fetchData();
   }, [id]);
 
-  if (!id) {
-    return <p>Ungültige Quiz-ID.</p>;
-  }
-
   if (!quiz) {
     return <p>Quiz wird geladen...</p>;
   }
@@ -59,15 +57,9 @@ export default function QuizStart() {
         {quiz.description}
       </p>
 
-      <p>
-        <strong>Fragen:</strong> {questionCount}
-      </p>
-      <p>
-        <strong>Schwierigkeit:</strong> {quiz.difficulty || "Unbekannt"}
-      </p>
-      <p>
-        <strong>Dauer:</strong> {quiz.duration || "ca. 5 Minuten"}
-      </p>
+      <p><strong>Fragen:</strong> {questionCount}</p>
+      <p><strong>Schwierigkeit:</strong> {quiz.difficulty || "Unbekannt"}</p>
+      <p><strong>Dauer:</strong> {quiz.duration || "ca. 5 Minuten"}</p>
 
       <button
         className="start-button"
