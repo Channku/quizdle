@@ -6,6 +6,8 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+pocketbase/pb_data
+pocketbase/pocketbase
 
 quizdle/node_modules
 quizdle/dist
