@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PocketBase from "pocketbase";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CategoryCard from "../../components/CategoryCard/CategoryCard";
 import "./LandingPage.css";
 
@@ -56,10 +56,14 @@ function LandingPage() {
           />
         ))}
       </div>
-
-      <button className="create-button" onClick={handleCreateClick}>
-        Quiz erstellen
-      </button>
+      <div className="button-row">
+        <button className="create-button" onClick={handleCreateClick}>
+          Quiz erstellen
+        </button>
+        <Link to={"/quiz/addquestion"}>
+          <button className="edit-button">Quiz Bearbeiten</button>
+        </Link>
+      </div>
     </>
   );
 }
