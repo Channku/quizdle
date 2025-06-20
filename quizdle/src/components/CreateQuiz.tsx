@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PocketBase from "pocketbase";
+import "./CreateQuiz.css";
 
 const pb = new PocketBase("http://127.0.0.1:8090"); // ggf. URL anpassen
 
@@ -34,8 +35,8 @@ const CreateQuiz: React.FC<CreateQuizProps> = () => {
   return (
     <div className="create-quiz-container">
       <form onSubmit={handleCreateQuiz} className="form-card">
+        <h4>Quiz Titel</h4>
         <label>
-          <strong>Quiz-Titel</strong>
           <input
             type="text"
             placeholder="Z. B. Musik-Expertenquiz"
@@ -45,8 +46,8 @@ const CreateQuiz: React.FC<CreateQuizProps> = () => {
           />
         </label>
 
+        <h4>Beschreibung</h4>
         <label>
-          <strong>Beschreibung</strong>
           <textarea
             placeholder="Worum geht es in deinem Quiz?"
             value={description}
@@ -55,8 +56,8 @@ const CreateQuiz: React.FC<CreateQuizProps> = () => {
           />
         </label>
 
+        <h4>Kategorie</h4>
         <label>
-          <strong>Kategorie</strong>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
@@ -66,7 +67,6 @@ const CreateQuiz: React.FC<CreateQuizProps> = () => {
             <option value="Musik">Musik</option>
             <option value="Geschichte">Geschichte</option>
             <option value="Technologie">Technologie</option>
-            {/* weitere Kategorien */}
           </select>
         </label>
 

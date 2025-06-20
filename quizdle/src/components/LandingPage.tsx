@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import PocketBase from "pocketbase";
-import CategoryCard from ".././components/CategoryCard";
+
+import { useNavigate } from "react-router-dom";
+import CategoryCard from "./CategoryCard/CategoryCard";
 interface Quiz {
   id: string;
   category: string;
@@ -12,6 +14,11 @@ const pb = new PocketBase("http://127.0.0.1:8090");
 
 function LandingPage() {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
+  const navigate = useNavigate();
+
+  const handleCreateClick = () => {
+    navigate("/create-quiz");
+  };
 
   useEffect(() => {
     async function fetchQuizzes() {
@@ -45,11 +52,13 @@ function LandingPage() {
             name={quiz.category}
             emoji={quiz.emoji || "❓"}
             color={quiz.color}
-            />
+          />
         ))}
       </div>
 
-      <button className="create-button">Quiz erstellen</button>
+      <button className="create-button" onClick={handleCreateClick}>
+        Quiz erstellen
+      </button>
     </>
   );
 }
