@@ -1,4 +1,4 @@
-import CreateQuiz from "../../components/CreateQuiz";
+import CreateQuiz from "../../components/CreateQuiz/CreateQuiz";
 
 const CreateQuizPage = () => {
   return <CreateQuiz />;

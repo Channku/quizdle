@@ -50,11 +50,20 @@ export default function QuizStart() {
   return (
     <div className="quiz-card">
       <h2>Kategorie: {quiz.category}</h2>
-      <p><strong>Beschreibung: </strong>{quiz.description}</p>
+      <p>
+        <strong>Beschreibung: </strong>
+        {quiz.description}
+      </p>
 
-      <p><strong>Fragen:</strong> {questionCount}</p>
-      <p><strong>Schwierigkeit:</strong> {quiz.difficulty || "Unbekannt"}</p>
-      <p><strong>Dauer:</strong> {quiz.duration || "ca. 5 Minuten"}</p>
+      <p>
+        <strong>Fragen:</strong> {questionCount}
+      </p>
+      <p>
+        <strong>Schwierigkeit:</strong> {quiz.difficulty || "Unbekannt"}
+      </p>
+      <p>
+        <strong>Dauer:</strong> {quiz.duration || "ca. 5 Minuten"}
+      </p>
 
       <button>Quiz starten</button>
     </div>

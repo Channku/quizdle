@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PocketBase from "pocketbase";
 
 import { useNavigate } from "react-router-dom";
-import CategoryCard from "./CategoryCard/CategoryCard";
+import CategoryCard from "../../components/CategoryCard/CategoryCard";
 interface Quiz {
   id: string;
   category: string;

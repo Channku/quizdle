@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import LandingPage from "./components/LandingPage";
+import LandingPage from "./pages/LandingPage/LandingPage";
 import QuizStart from "./pages/QuizStart";
 import CreateQuizPage from "./pages/CreateQuizPage/CreateQuizPage";
 

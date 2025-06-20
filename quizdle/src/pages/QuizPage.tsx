@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PocketBase from "pocketbase";
-import QuestionCard from "../components/QuestionCard";
+import QuestionCard from "../components/QuestionCard/QuestionCard";
 
 interface Question {
   id: string;
@@ -14,19 +14,21 @@ const pb = new PocketBase("http://127.0.0.1:8090");
 function QuestionsPage() {
   const [questions, setQuestions] = useState<Question[]>([]);
 
-   useEffect(() => {
-      async function fetchQuestions() {
-        try {
-          const records = await pb.collection("questions").getFullList<Question>();
-          setQuestions(records);
-        } catch (err) {
-          console.error("Fehler beim Laden der Daten:", err);
-        }
+  useEffect(() => {
+    async function fetchQuestions() {
+      try {
+        const records = await pb
+          .collection("questions")
+          .getFullList<Question>();
+        setQuestions(records);
+      } catch (err) {
+        console.error("Fehler beim Laden der Daten:", err);
       }
-  
-      fetchQuestions();
-    }, []);
-    console.log(questions)
+    }
+
+    fetchQuestions();
+  }, []);
+  console.log(questions);
 
   return (
     <div className="questions-container">
@@ -39,7 +41,7 @@ function QuestionsPage() {
         />
       ))}
     </div>
-    );
+  );
 }
 
 export default QuestionsPage;
