@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PocketBase from "pocketbase";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CategoryCard from "../../components/CategoryCard/CategoryCard";
 import "./LandingPage.css";
 
@@ -15,10 +15,24 @@ const pb = new PocketBase("http://127.0.0.1:8090");
 
 function LandingPage() {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
+  const [showEditModal, setShowEditModal] = useState(false);
   const navigate = useNavigate();
 
   const handleCreateClick = () => {
     navigate("/create-quiz");
+  };
+
+  const handleEditClick = () => {
+    setShowEditModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowEditModal(false);
+  };
+
+  const handleQuizSelect = (id: string) => {
+    navigate(`/quiz/questionmanager/${id}`);
+    setShowEditModal(false);
   };
 
   useEffect(() => {
@@ -56,14 +70,38 @@ function LandingPage() {
           />
         ))}
       </div>
+
       <div className="button-row">
         <button className="create-button" onClick={handleCreateClick}>
           Quiz erstellen
         </button>
-        <Link to={"/quiz/addquestion"}>
-          <button className="edit-button">Quiz Bearbeiten</button>
-        </Link>
+        <button className="edit-button" onClick={handleEditClick}>
+          Quiz bearbeiten
+        </button>
       </div>
+
+      {/* Modal */}
+      {showEditModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Wähle ein Quiz zum Bearbeiten</h3>
+            <ul className="quiz-list">
+              {quizzes.map((quiz) => (
+                <li
+                  key={quiz.id}
+                  className="quiz-item"
+                  onClick={() => handleQuizSelect(quiz.id)}
+                >
+                  {quiz.emoji || "❓"} {quiz.category}
+                </li>
+              ))}
+            </ul>
+            <button className="close-button" onClick={handleCloseModal}>
+              Schließen
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }

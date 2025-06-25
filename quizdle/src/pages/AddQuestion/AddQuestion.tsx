@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import "./AddQuestion.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import PocketBase from "pocketbase";
+
+const pb = new PocketBase("http://127.0.0.1:8090");
 
 const AddQuestion: React.FC = () => {
+  const { quizId } = useParams();
+  const navigate = useNavigate();
+
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState(["", "", "", ""]);
   const [correctAnswer, setCorrectAnswer] = useState("");
@@ -13,10 +19,45 @@ const AddQuestion: React.FC = () => {
     setAnswers(updated);
   };
 
-  const handleAddAnother = () => {
-    setQuestion("");
-    setAnswers(["", "", "", ""]);
-    setCorrectAnswer("");
+  const handleAddAnother = async () => {
+    if (!quizId) {
+      alert("Fehler: Keine Quiz-ID gefunden!");
+      return;
+    }
+
+    if (!question || answers.some((a) => !a) || !correctAnswer) {
+      alert("Bitte alle Felder ausfüllen!");
+      return;
+    }
+
+    const correctAnswerIndex = ["A", "B", "C", "D"].indexOf(correctAnswer);
+
+    if (correctAnswerIndex === -1) {
+      alert("Bitte eine gültige richtige Antwort auswählen.");
+      return;
+    }
+
+    const correctAnswerText = answers[correctAnswerIndex];
+
+    if (!correctAnswerText) {
+      alert("Der Antworttext der richtigen Antwort fehlt.");
+      return;
+    }
+
+    try {
+      await pb.collection("questions").create({
+        quiz: quizId,
+        question: question,
+        answers: answers,
+        correct: correctAnswerText,
+      });
+
+      alert("Frage erfolgreich hinzugefügt!");
+      navigate(`/quiz/questionmanager/${quizId}`);
+    } catch (error) {
+      console.error("Fehler beim Speichern:", error);
+      alert("Fehler beim Speichern der Frage.");
+    }
   };
 
   return (
@@ -62,9 +103,11 @@ const AddQuestion: React.FC = () => {
           <Link to={"/"}>
             <button className="toMain-button">Hauptmenü</button>
           </Link>
-          <button className="add-button" onClick={handleAddAnother}>Erstellen</button>
-          <Link to={"/quiz/questionmanager"}>
-            <button className="toDelete-button">Fragen löschen</button>
+          <button className="add-button" onClick={handleAddAnother}>
+            Erstellen
+          </button>
+          <Link to={`/quiz/questionmanager/${quizId}`}>
+            <button className="toDelete-button">Abbrechen</button>
           </Link>
         </div>
       </div>

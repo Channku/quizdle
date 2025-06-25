@@ -31,15 +31,18 @@ const CreateQuiz: React.FC<CreateQuizProps> = () => {
         color,
       };
 
-      await pb.collection("quizzes").create(data);
+      const createdQuiz = await pb.collection("quizzes").create(data);
+
       alert("Quiz erfolgreich erstellt!");
       setName("");
       setEmoji("");
       setDescription("");
       setCategory("");
       setDifficulty("");
-      setDuration(0);
-      setColor("");
+      setDuration(50);
+      setColor("#2196f3");
+
+      navigate(`/quiz/questionmanager/${createdQuiz.id}`);
     } catch (error) {
       console.error("Fehler beim Erstellen des Quiz:", error);
       alert("Fehler beim Erstellen des Quiz.");
@@ -122,6 +125,7 @@ const CreateQuiz: React.FC<CreateQuizProps> = () => {
                 type="range"
                 min={1}
                 max={60}
+                value={duration}
                 onChange={(e) => setDuration(Number(e.target.value))}
                 required
               />
