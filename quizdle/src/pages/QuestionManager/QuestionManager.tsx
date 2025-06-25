@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import PocketBase from "pocketbase";
 import "./QuestionManager.css";
 
@@ -16,6 +16,7 @@ const QuestionManager: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchQuestions() {
@@ -73,6 +74,10 @@ const QuestionManager: React.FC = () => {
     }
   };
 
+    const handleQuestionSelect = (id: string) => {
+    navigate(`/quiz/${quizId}/UpdateQuestion/${id}`);
+  };
+
   return (
     <div className="container">
       <div className="form">
@@ -92,6 +97,12 @@ const QuestionManager: React.FC = () => {
               onChange={(e) => handleChange(q.id, e.target.value)}
               onBlur={() => handleSave(q.id, q.question)}
             />
+            <button
+              className="update-button"
+              onClick={() => handleQuestionSelect(q.id)}
+            >
+              Frage bearbeiten
+            </button>
             <button
               className="delete-button"
               onClick={() => handleDeleteClick(q.id)}

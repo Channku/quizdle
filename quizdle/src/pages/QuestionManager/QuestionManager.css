@@ -42,6 +42,16 @@
   font-size: 16px;
 }
 
+.update-button {
+  background-color: #4dcaff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
 .delete-button {
   background-color: #ff4d4d;
   color: white;
