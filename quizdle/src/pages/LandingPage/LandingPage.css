@@ -70,3 +70,79 @@
 .questions-container {
   margin-top: 30px;
 }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-body {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.modal-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.quiz-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.quiz-item {
+  background: #f5f5f5;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.quiz-item:hover {
+  background: #eaeaea;
+}
+
+.quiz-info {
+  flex: 1;
+}
+
+.delete-button {
+  background: transparent;
+  border: none;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  color: rgb(77, 4, 4);
+}

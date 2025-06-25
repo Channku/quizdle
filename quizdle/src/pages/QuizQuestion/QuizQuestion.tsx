@@ -21,7 +21,7 @@ export default function QuizQuestion() {
 
   const [questions, setQuestions] = useState<Question[]>([]);
   const [selected, setSelected] = useState<number | null>(null);
-  
+
   const currentIndex = parseInt(index || "0");
 
   useEffect(() => {
@@ -43,7 +43,16 @@ export default function QuizQuestion() {
   function handleNext() {
     if (selected === null) return;
 
-    const isCorrect = currentQuestion.answers[selected] === currentQuestion.correct;
+    const selectedAnswer = currentQuestion.answers[selected];
+    const correctAnswer = currentQuestion.correct;
+
+    const isCorrect =
+      selectedAnswer.trim().toLowerCase() === correctAnswer.trim().toLowerCase();
+
+    console.log("Ausgewählt:", selectedAnswer);
+    console.log("Korrekt:", correctAnswer);
+    console.log("Richtig beantwortet:", isCorrect);
+
     const newScore = previousScore + (isCorrect ? 1 : 0);
 
     if (!isLast) {
@@ -81,7 +90,11 @@ export default function QuizQuestion() {
         ))}
       </div>
 
-      <button className="next-button" onClick={handleNext} disabled={selected === null}>
+      <button
+        className="next-button"
+        onClick={handleNext}
+        disabled={selected === null}
+      >
         {isLast ? "Fertig" : "Weiter"}
       </button>
     </div>

@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import PocketBase from "pocketbase";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CategoryCard from "../../components/CategoryCard/CategoryCard";
 import "./LandingPage.css";
 import SearchFilter from "../../components/SearchFilter/SearchFilter";
 
 interface Quiz {
   id: string;
-  category: string;
+  name: string;
   emoji?: string;
   color: string;
 }
@@ -17,10 +17,39 @@ const pb = new PocketBase("http://127.0.0.1:8090");
 function LandingPage() {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [filterText, setFilterText] = useState("");
+  const [showEditModal, setShowEditModal] = useState(false);
   const navigate = useNavigate();
 
   const handleCreateClick = () => {
     navigate("/create-quiz");
+  };
+
+  const handleEditClick = () => {
+    setShowEditModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowEditModal(false);
+  };
+
+  const handleQuizSelect = (id: string) => {
+    navigate(`/quiz/questionmanager/${id}`);
+    setShowEditModal(false);
+  };
+
+  const handleDeleteQuiz = async (id: string) => {
+    const confirmDelete = window.confirm(
+      "Willst du dieses Quiz wirklich löschen?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      await pb.collection("quizzes").delete(id);
+      setQuizzes((prev) => prev.filter((quiz) => quiz.id !== id));
+    } catch (error) {
+      console.error("Fehler beim Löschen:", error);
+      alert("Fehler beim Löschen.");
+    }
   };
 
   useEffect(() => {
@@ -38,7 +67,7 @@ function LandingPage() {
 
   const filteredQuizzes = filterText
     ? quizzes.filter((quiz) =>
-        quiz.category.toLowerCase().startsWith(filterText.toLowerCase())
+        quiz.name.toLowerCase().startsWith(filterText.toLowerCase())
       )
     : quizzes;
 
@@ -58,7 +87,7 @@ function LandingPage() {
           <CategoryCard
             key={quiz.id}
             id={quiz.id}
-            name={quiz.category}
+            name={quiz.name}
             emoji={quiz.emoji || "❓"}
             color={quiz.color}
           />
@@ -67,14 +96,50 @@ function LandingPage() {
       {filteredQuizzes.length === 0 && (
         <p className="no-quizzes-message">Keine Quiz-Kategorien gefunden.</p>
       )}
+
       <div className="button-row">
         <button className="create-button" onClick={handleCreateClick}>
           Quiz erstellen
         </button>
-        <Link to={"/quiz/addquestion"}>
-          <button className="edit-button">Quiz Bearbeiten</button>
-        </Link>
+        <button className="edit-button" onClick={handleEditClick}>
+          Quiz bearbeiten
+        </button>
       </div>
+
+      {/* Modal */}
+      {showEditModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            {/* Schließen Button oben rechts */}
+            <button className="modal-close-button" onClick={handleCloseModal}>
+              ✖
+            </button>
+
+            <h3>Wähle ein Quiz zum Bearbeiten</h3>
+            <ul className="quiz-list">
+              {quizzes.map((quiz) => (
+                <li key={quiz.id} className="quiz-item">
+                  <div
+                    className="quiz-info"
+                    onClick={() => handleQuizSelect(quiz.id)}
+                  >
+                    {quiz.emoji || "❓"} {quiz.name}
+                  </div>
+                  <button
+                    className="delete-button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteQuiz(quiz.id);
+                    }}
+                  >
+                    ❌
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </>
   );
 }
