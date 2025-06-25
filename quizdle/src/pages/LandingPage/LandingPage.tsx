@@ -6,7 +6,7 @@ import "./LandingPage.css";
 
 interface Quiz {
   id: string;
-  category: string;
+  name: string;
   emoji?: string;
   color: string;
 }
@@ -33,6 +33,21 @@ function LandingPage() {
   const handleQuizSelect = (id: string) => {
     navigate(`/quiz/questionmanager/${id}`);
     setShowEditModal(false);
+  };
+
+  const handleDeleteQuiz = async (id: string) => {
+    const confirmDelete = window.confirm(
+      "Willst du dieses Quiz wirklich löschen?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      await pb.collection("quizzes").delete(id);
+      setQuizzes((prev) => prev.filter((quiz) => quiz.id !== id));
+    } catch (error) {
+      console.error("Fehler beim Löschen:", error);
+      alert("Fehler beim Löschen.");
+    }
   };
 
   useEffect(() => {
@@ -64,7 +79,7 @@ function LandingPage() {
           <CategoryCard
             key={quiz.id}
             id={quiz.id}
-            name={quiz.category}
+            name={quiz.name}
             emoji={quiz.emoji || "❓"}
             color={quiz.color}
           />
@@ -84,21 +99,33 @@ function LandingPage() {
       {showEditModal && (
         <div className="modal-overlay">
           <div className="modal-content">
+            {/* Schließen Button oben rechts */}
+            <button className="modal-close-button" onClick={handleCloseModal}>
+              ✖
+            </button>
+
             <h3>Wähle ein Quiz zum Bearbeiten</h3>
             <ul className="quiz-list">
               {quizzes.map((quiz) => (
-                <li
-                  key={quiz.id}
-                  className="quiz-item"
-                  onClick={() => handleQuizSelect(quiz.id)}
-                >
-                  {quiz.emoji || "❓"} {quiz.category}
+                <li key={quiz.id} className="quiz-item">
+                  <div
+                    className="quiz-info"
+                    onClick={() => handleQuizSelect(quiz.id)}
+                  >
+                    {quiz.emoji || "❓"} {quiz.name}
+                  </div>
+                  <button
+                    className="delete-button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteQuiz(quiz.id);
+                    }}
+                  >
+                    ❌
+                  </button>
                 </li>
               ))}
             </ul>
-            <button className="close-button" onClick={handleCloseModal}>
-              Schließen
-            </button>
           </div>
         </div>
       )}
