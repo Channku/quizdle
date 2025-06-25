@@ -13,7 +13,7 @@
 Falls permission denied angezeigt wird, muss noch die Berechtigung angepasst werden. Nutze dafür `chmod +x pocketbase`.
 
 ##### Frontend
-1. Pulle dieses Repository in einen deiner Ordner (npm registry login wird benötigt).
+1. Pulle dieses Repository in einen deiner Ordner .
 2. Navigiere in den "quizdle" Ordner.
-3. Führe den Befehl `npm install` aus und warte auf die Installation.
+3. Führe den Befehl `npm install` (npm registry login wird benötigt) aus und warte auf die Installation.
 4. Starte die App mit dem Befehl `npm run dev`.
