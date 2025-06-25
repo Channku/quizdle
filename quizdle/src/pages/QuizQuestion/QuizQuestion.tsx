@@ -4,8 +4,8 @@ import PocketBase from "pocketbase";
 import "./QuizQuestion.css";
 
 const pb = new PocketBase("http://127.0.0.1:8090");
-
 interface Question {
+
   id: string;
   question: string;
   answers: string[];
@@ -57,22 +57,21 @@ export default function QuizQuestion() {
 
     if (!isLast) {
       navigate(`/quiz/${id}/question/${currentIndex + 1}`, {
-        state: { score: newScore },
+      state: { score: newScore },
       });
     } else {
-      navigate("/result", {
-        state: {
-          score: newScore,
-          total: questions.length,
-        },
-      });
-    }
+      navigate(`/result/${id}`, {
+      state: {
+      score: newScore,
+      total: questions.length,
+    },
+  });
+}
   }
 
   return (
     <div className="quiz-question-card">
       <div className="quiz-meta">
-        <span>🎵 Musik</span>
         <span>Frage {currentIndex + 1} von {questions.length}</span>
       </div>
 
