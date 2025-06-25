@@ -3,6 +3,7 @@ import PocketBase from "pocketbase";
 import { useNavigate } from "react-router-dom";
 import CategoryCard from "../../components/CategoryCard/CategoryCard";
 import "./LandingPage.css";
+import SearchFilter from "../../components/SearchFilter/SearchFilter";
 
 interface Quiz {
   id: string;
@@ -15,6 +16,7 @@ const pb = new PocketBase("http://127.0.0.1:8090");
 
 function LandingPage() {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
+  const [filterText, setFilterText] = useState("");
   const [showEditModal, setShowEditModal] = useState(false);
   const navigate = useNavigate();
 
@@ -63,6 +65,12 @@ function LandingPage() {
     fetchQuizzes();
   }, []);
 
+  const filteredQuizzes = filterText
+    ? quizzes.filter((quiz) =>
+        quiz.name.toLowerCase().startsWith(filterText.toLowerCase())
+      )
+    : quizzes;
+
   return (
     <>
       <div className="header">
@@ -70,12 +78,12 @@ function LandingPage() {
         <h1>Quizdle</h1>
       </div>
 
-      <input className="search" type="text" placeholder="Suche nach Quiz..." />
+      <SearchFilter filterText={filterText} setFilterText={setFilterText} />
 
       <h2 className="section-title">EMPFOHLENE QUIZ-KATEGORIEN</h2>
 
       <div className="category-grid">
-        {quizzes.map((quiz) => (
+        {filteredQuizzes.map((quiz) => (
           <CategoryCard
             key={quiz.id}
             id={quiz.id}
@@ -85,6 +93,9 @@ function LandingPage() {
           />
         ))}
       </div>
+      {filteredQuizzes.length === 0 && (
+        <p className="no-quizzes-message">Keine Quiz-Kategorien gefunden.</p>
+      )}
 
       <div className="button-row">
         <button className="create-button" onClick={handleCreateClick}>
