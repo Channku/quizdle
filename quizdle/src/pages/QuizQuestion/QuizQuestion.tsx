@@ -5,7 +5,6 @@ import "./QuizQuestion.css";
 
 const pb = new PocketBase("http://127.0.0.1:8090");
 interface Question {
-
   id: string;
   question: string;
   answers: string[];
@@ -35,6 +34,10 @@ export default function QuizQuestion() {
     fetchQuestions();
   }, [id]);
 
+  useEffect(() => {
+    setSelected(null);
+  }, [index]);
+
   if (!questions.length) return <p>Lade Fragen...</p>;
 
   const currentQuestion = questions[currentIndex];
@@ -47,7 +50,8 @@ export default function QuizQuestion() {
     const correctAnswer = currentQuestion.correct;
 
     const isCorrect =
-      selectedAnswer.trim().toLowerCase() === correctAnswer.trim().toLowerCase();
+      selectedAnswer.trim().toLowerCase() ===
+      correctAnswer.trim().toLowerCase();
 
     console.log("Ausgewählt:", selectedAnswer);
     console.log("Korrekt:", correctAnswer);
@@ -57,22 +61,24 @@ export default function QuizQuestion() {
 
     if (!isLast) {
       navigate(`/quiz/${id}/question/${currentIndex + 1}`, {
-      state: { score: newScore },
+        state: { score: newScore },
       });
     } else {
       navigate(`/result/${id}`, {
-      state: {
-      score: newScore,
-      total: questions.length,
-    },
-  });
-}
+        state: {
+          score: newScore,
+          total: questions.length,
+        },
+      });
+    }
   }
 
   return (
     <div className="quiz-question-card">
       <div className="quiz-meta">
-        <span>Frage {currentIndex + 1} von {questions.length}</span>
+        <span>
+          Frage {currentIndex + 1} von {questions.length}
+        </span>
       </div>
 
       <h2 className="question-text">{currentQuestion.question}</h2>
