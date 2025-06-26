@@ -113,7 +113,14 @@ const CreateQuiz: React.FC<CreateQuizProps> = () => {
                 </option>
                 <option value="Musik">Musik</option>
                 <option value="Geschichte">Geschichte</option>
+                <option value="Technologie">Sport</option>
+                <option value="Technologie">Gaming</option>
                 <option value="Technologie">Technologie</option>
+                <option value="Technologie">Geogrpahie</option>
+                <option value="Technologie">Wissenschaft</option>
+                <option value="Technologie">Essen</option>
+                <option value="Technologie">Politik</option>
+                <option value="Technologie">Andere</option>
               </select>
             </label>
           </div>
@@ -147,6 +154,7 @@ const CreateQuiz: React.FC<CreateQuizProps> = () => {
                 <option value="Easy">Leicht</option>
                 <option value="Medium">Mittel</option>
                 <option value="Hard">Schwierig</option>
+                <option value="Extreme">EXTREME!!</option>
               </select>
             </label>
           </div>

@@ -12,6 +12,10 @@
 ###### Troubleshooting
 Falls permission denied angezeigt wird, muss noch die Berechtigung angepasst werden. Nutze dafür `chmod +x pocketbase`.
 
+Pocketbase Credentials.
+E-Mail: christoph.kueng1@swisscom.com 
+Passwort: sml12345
+
 ##### Frontend
 1. Pulle dieses Repository in einen deiner Ordner .
 2. Navigiere in den "quizdle" Ordner.
